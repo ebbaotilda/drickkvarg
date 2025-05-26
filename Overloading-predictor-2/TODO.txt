@@ -1,0 +1,7 @@
+Saker att göra i repot.
+
+1: Skapa model för predictions
+
+2: Kolla om man kan koppla tableau till git
+
+3: skript för att hämta modell

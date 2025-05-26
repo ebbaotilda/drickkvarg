@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ferry Overcrowding Risk</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f6fa;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    select, input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border: none;
+      background: #0077cc;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    .result {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .low {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .medium {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .high {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Ferry Overcrowding Risk</h2>
+    <label for="weather">Weather</label>
+    <select id="weather">
+      <option value="sunny">Sunny</option>
+      <option value="cloudy">Cloudy</option>
+      <option value="rainy">Rainy</option>
+      <option value="windy">Windy</option>
+    </select>
+
+    <label for="departure">Departure Time</label>
+    <input type="time" id="departure" required>
+
+    <button onclick="calculateRisk()">Check Risk</button>
+
+    <div id="output" class="result"></div>
+  </div>
+
+  <script>
+    function calculateRisk() {
+      const weather = document.getElementById("weather").value;
+      const departure = document.getElementById("departure").value;
+      const hour = parseInt(departure.split(":")[0], 10);
+      let risk = "Low";
+      let cssClass = "low";
+
+      // Very simplified logic:
+      if ((weather === "sunny" && (hour >= 10 && hour <= 16)) ||
+          (hour >= 7 && hour <= 9) ||
+          (hour >= 16 && hour <= 18)) {
+        risk = "High";
+        cssClass = "high";
+      } else if (weather === "cloudy" || (hour >= 9 && hour <= 10)) {
+        risk = "Medium";
+        cssClass = "medium";
+      }
+
+      const output = document.getElementById("output");
+      output.textContent = `Overcrowding Risk: ${risk}`;
+      output.className = `result ${cssClass}`;
+    }
+  </script>
+</body>
+</html>
